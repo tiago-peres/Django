@@ -1,0 +1,546 @@
+Windows PowerShell
+Copyright (C) 2016 Microsoft Corporation. All rights reserved.
+
+PS C:\WINDOWS\system32> cd /PythonProjects
+PS C:\PythonProjects> cd virtualenvs
+PS C:\PythonProjects\virtualenvs> virtualenv apis
+New python executable in C:\PythonProjects\virtualenvs\apis\Scripts\python.exe
+Installing setuptools, pip, wheel...done.
+PS C:\PythonProjects\virtualenvs> apis\Scripts\activate
+(apis) PS C:\PythonProjects\virtualenvs> pip freeze
+appdirs==1.4.2
+packaging==16.8
+pyparsing==2.1.10
+six==1.10.0
+(apis) PS C:\PythonProjects\virtualenvs> pip install django==1.8
+Collecting django==1.8
+  Using cached Django-1.8-py2.py3-none-any.whl
+Installing collected packages: django
+Successfully installed django-1.8
+(apis) PS C:\PythonProjects\virtualenvs> pip install requests
+Collecting requests
+  Using cached requests-2.13.0-py2.py3-none-any.whl
+Installing collected packages: requests
+Successfully installed requests-2.13.0
+(apis) PS C:\PythonProjects\virtualenvs> cd ..
+(apis) PS C:\PythonProjects> ls
+
+
+    Directory: C:\PythonProjects
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----        1/14/2017   8:17 AM                django
+d-----        2/13/2017   7:02 PM                django_dev
+d-----        1/12/2017  10:28 AM                downloads
+d-----        1/14/2017   8:06 AM                rrh
+d-----        2/28/2017   8:49 AM                virtualenvs
+
+
+(apis) PS C:\PythonProjects> mkdir github
+
+
+    Directory: C:\PythonProjects
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----        2/28/2017   8:54 AM                github
+
+
+(apis) PS C:\PythonProjects> ls
+
+
+    Directory: C:\PythonProjects
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----        1/14/2017   8:17 AM                django
+d-----        2/13/2017   7:02 PM                django_dev
+d-----        1/12/2017  10:28 AM                downloads
+d-----        2/28/2017   8:54 AM                github
+d-----        1/14/2017   8:06 AM                rrh
+d-----        2/28/2017   8:49 AM                virtualenvs
+
+
+(apis) PS C:\PythonProjects> cd github
+(apis) PS C:\PythonProjects\github> django-admin startproject demonstration
+(apis) PS C:\PythonProjects\github> ls
+
+
+    Directory: C:\PythonProjects\github
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----        2/28/2017   8:54 AM                demonstration
+
+
+(apis) PS C:\PythonProjects\github> cd demonstration
+(apis) PS C:\PythonProjects\github\demonstration> ls
+
+
+    Directory: C:\PythonProjects\github\demonstration
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----        2/28/2017   8:54 AM                demonstration
+-a----        2/28/2017   8:54 AM            256 manage.py
+
+
+(apis) PS C:\PythonProjects\github\demonstration> cd demonstration
+(apis) PS C:\PythonProjects\github\demonstration\demonstration> ls
+
+
+    Directory: C:\PythonProjects\github\demonstration\demonstration
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        2/28/2017   8:54 AM           2657 settings.py
+-a----        2/28/2017   8:54 AM            261 urls.py
+-a----        2/28/2017   8:54 AM            403 wsgi.py
+-a----        2/28/2017   8:54 AM              0 __init__.py
+
+//////////////////////////////////////////
+
+ demonstration/manage.py: A command-line program allowing users to interact with their Django applications.
+
+ demonstration/demonstration/init.py: An empty file signifying that this directory is considered a Python package.
+
+ demonstration/demonstration/settings.py: A file consisting of key-value pairs for configuring your Django application. 
+ You can configure your databases, setup paths to static files, and much more.
+
+ demonstration/demonstration/urls.py: Allows us to map view functions to URLs, which is essentially a table of contents 
+ for our application. You can read much more about it here.
+
+ demonstration/demonstration/wsgi.py: Allows us to deploy WSGI-compatible web servers, which you can read about more here.
+ 
+ \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+ 
+ (apis) PS C:\PythonProjects\github\demonstration> python manage.py runserver
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have unapplied migrations; your app may not work properly until they are applied.
+Run 'python manage.py migrate' to apply them.
+February 28, 2017 - 08:57:19
+Django version 1.8, using settings 'demonstration.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+[28/Feb/2017 08:57:26]"GET / HTTP/1.1" 200 1767
+[28/Feb/2017 08:57:26]"GET /favicon.ico HTTP/1.1" 404 1943
+
+(apis) PS C:\PythonProjects\github\demonstration> python manage.py startapp app
+(apis) PS C:\PythonProjects\github\demonstration> cd app
+(apis) PS C:\PythonProjects\github\demonstration\app> ls
+
+
+    Directory: C:\PythonProjects\github\demonstration\app
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----        2/28/2017   9:01 AM                migrations
+-a----        2/28/2017   9:01 AM             63 admin.py
+-a----        2/28/2017   9:01 AM             57 models.py
+-a----        2/28/2017   9:01 AM             60 tests.py
+-a----        2/28/2017   9:01 AM             63 views.py
+-a----        2/28/2017   9:01 AM              0 __init__.py
+
+//////////////////////////////////////////
+
+ app/admin.py: Allows us to register our models to view on the Django Admin Site.
+
+ app/migrations: Keeps track of our migrations which are essentially Django’s way of propagating changes that are made to our models.
+
+ app/models.py: Stores our representations of objects which will be stored in our database.
+
+ app/tests.py: Our unit tests will live here. Although Django calls these tests “unit tests”, they’re actually closer to integration tests.
+
+ app/views.py: All of our views will live here, which are mapped to URLs.
+ 
+ \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+ 
+. Configure Settings.py
+ 
+For this project, we’ll need to add the following lines anywhere in this file:
+
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+This will configure our paths for our Static files (CSS, JavaScript, images, etc) as well as the path to our template files.
+
+Lastly, we’ll need to register your application (named app) under the Installed Apps section:
+
+INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'app',
+)
+
+. Our first view
+
+app/views.py:
+
+----------------------------------------
+# views.py
+
+from django.shortcuts import render, HttpResponse
+
+# Create your views here.
+
+def index(request):
+    return HttpResponse('Hello World!')
+	
+----------------------------------------	
+	
+# demonstration/urls.py
+
+from django.conf.urls import include, url
+from django.contrib import admin
+
+urlpatterns = [
+  url(r'^app/', include('app.urls')),
+  url(r'^admin/', include(admin.site.urls)),
+]
+
+-----------------------------------------
+
+Now, our URLs may be accessed as http://127.0.0.1:8000/app/<view url>.
+
+We’ll now create a new urls.py file within  app/:
+
+And we’ll add the following content:
+
+-----------------------------------------
+# app/urls.py
+
+from django.conf.urls import url
+
+from app import views
+
+urlpatterns = [
+  url(r'^$', views.index, name='index'),
+]
+
+-----------------------------------------
+
+At this point, can you see the application flow that we described earlier?
+To further emphasize this, try and see if you can create a new url, map it to your view, and display the string My second view! on your own.
+
+We’ll include the code to do so below:
+
+-----------------------------------------
+# app/urls.py
+
+from django.conf.urls import url
+
+from app import views
+
+urlpatterns = [
+  url(r'^$', views.index, name='index'),
+  url(r'^test/$', views.test, name='test'),
+]
+
+-----------------------------------------
+
+# views.py
+
+from django.shortcuts import render, HttpResponse
+import requests
+
+# Create your views here.
+
+def index(request):
+    return HttpResponse('Hello World!')
+
+def test(request):
+    return HttpResponse('My second view!')
+	
+-----------------------------------------
+
+Alright, you should be getting the hang of it now. We’ve been making some toy views, but how about we move onto displaying some meaningful data to the user?
+In particular, we’ll display the Github profile information for a given user.
+
+time to work out the Integration with the Github API
+
+
+https://api.github.com/users/spastnudel
+
+this is the one associated to my account
+in the form of JSON
+
+In order to leverage this API, we’ll use the Python Requests library which will make this process simple.
+From the API for users, we can get profile information by using the following URL:
+
+https://api.github.com/users/:user
+
+, where :user is the name of the Github user you’d like to query profile information about
+ 
+Before we display this data in Django, going to open up a terminal and try the following:
+
+$ python
+>>>import requests
+>>> req = requests.get('https://api.github.com/users/spastnudel')
+>>> print req.content
+
+(apis) PS C:\PythonProjects\github\demonstration> python
+Python 2.7.12 (v2.7.12:d33e0cf91556, Jun 27 2016, 15:19:22) [MSC v.1500 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>>import requests
+>>> req = requests.get('https://api.github.com/users/spastnudel')
+>>> print req.content
+{"login":"spastnudel","id":13332903,"avatar_url":"https://avatars.githubusercontent.com/u/13332903?v=3","gravatar_id":""
+,"url":"https://api.github.com/users/spastnudel","html_url":"https://github.com/spastnudel","followers_url":"https://api
+.github.com/users/spastnudel/followers","following_url":"https://api.github.com/users/spastnudel/following{/other_user}"
+,"gists_url":"https://api.github.com/users/spastnudel/gists{/gist_id}","starred_url":"https://api.github.com/users/spast
+nudel/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/spastnudel/subscriptions","organizations
+_url":"https://api.github.com/users/spastnudel/orgs","repos_url":"https://api.github.com/users/spastnudel/repos","events
+_url":"https://api.github.com/users/spastnudel/events{/privacy}","received_events_url":"https://api.github.com/users/spa
+stnudel/received_events","type":"User","site_admin":false,"name":"Tiago Peres","company":null,"blog":"tiagoperes.wpgeekd
+evs.com","location":null,"email":null,"hireable":null,"bio":null,"public_repos":3,"public_gists":0,"followers":3,"follow
+ing":4,"created_at":"2015-07-14T12:57:47Z","updated_at":"2017-01-23T16:19:29Z"}
+>>>
+
+*As easy as that, we performed an HTTP GET request to the API endpoint and received JSON back*
+-----------------------------------------
+# app/urls.py 
+
+from django.conf.urls import url
+
+from app import views
+
+urlpatterns = [
+  url(r'^$', views.index, name='index'),
+  url(r'^test/$', views.test, name='test'),
+  url(r'^profile/$', views.profile, name='profile'),
+]
+
+-----------------------------------------
+
+Going forward, we’ll need a method to load json strings easily. Be sure to import json as shown in the code snippet below:
+-----------------------------------------
+# views.py 
+
+from django.shortcuts import render, HttpResponse
+import requests
+import json
+
+# Create your views here.
+
+def index(request):
+    return HttpResponse('Hello World!')
+
+def test(request):
+    return HttpResponse('My second view!')
+
+def profile(request):
+    req = requests.get('https://api.github.com/users/DrkSephy')
+    content = req.text
+    return HttpResponse(content)
+
+-----------------------------------------
+
+Now if you run the server and go to /app/profile you're going to see the JSON in the page.
+It's a little messy, so, let's work out the profile 
+
+-----------------------------------------
+def profile(request):
+    jsonList = []
+    req = requests.get('https://api.github.com/users/spastnudel')
+    jsonList.append(json.loads(req.content))
+    parsedData = []
+    userData = {}
+    for data in jsonList:
+        userData['name'] = data['name']
+        userData['blog'] = data['blog']
+        userData['email'] = data['email']
+        userData['public_gists'] = data['public_gists']
+        userData['public_repos'] = data['public_repos']
+        userData['avatar_url'] = data['avatar_url']
+        userData['followers'] = data['followers']
+        userData['following'] = data['following']
+    parsedData.append(userData)
+    return HttpResponse(parsedData)
+	
+-----------------------------------------
+
+Templating
+
+(apis) PS C:\PythonProjects\github\demonstration\app> mkdir templates
+
+
+    Directory: C:\PythonProjects\github\demonstration\app
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----        2/28/2017  11:00 AM                templates
+
+
+(apis) PS C:\PythonProjects\github\demonstration\app> mkdir templates/app
+
+
+    Directory: C:\PythonProjects\github\demonstration\app\templates
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----        2/28/2017  11:01 AM                app
+
+
+(apis) PS C:\PythonProjects\github\demonstration\app> cd templates/app
+
+Within our templates/app folder, we’ll create our profile.html:
+
+-------------------------------------------
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+	<title>Git-hub User Data</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0" />
+	{% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type = "text/css"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}" type = "text/css"/>
+	<script type="text/javascript" href="{% static 'js/jquery.min.js' %}"></script>
+	<script type="text/javascript" href="{% static 'js/bootstrap.min.js' %}"></script>
+	<style rel="stylesheet">
+		html,
+		body {
+		  height:100%
+		}
+	</style>
+</head>
+
+<body class="body" style="background-color:#f6f6f6">
+	<h1 class="text-center"> Github User Data </h1>
+  <div class="col-lg-12">
+      <style>
+        .form-signin {
+          max-width: 550px;
+          padding: 15px;
+          margin: 0 auto;
+        }
+      </style>
+
+
+      <div class="container text-center">
+          <form class="form-signin" id="login_form" method="post" action="/app/profile/">
+
+            {% csrf_token %}
+
+
+            <br>
+            <input type="text" name="user" class="form-control" placeholder="Github User Name, e.g: spastnudel" value="" required autofocus>
+            <br>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Get Data</button>
+          </form>
+      </div>
+      <div class="table-responsive">
+          <table class="table table-bordered table-hover table-striped tablesorter">
+              <thead>
+              <tr>
+                <th class="header"> Username <i class="icon-sort"></i></th>
+                <th class="header"> Blog <i class="icon-sort"></i></th>
+                <th class="header"> Public Repos <i class="icon-sort"></i></th>
+                <th class="header"> Public Gists <i class="icon-sort"></i></th>
+                <th class="header"> Email <i class="icon-sort"></i></th>
+                <th class="header"> Followers <i class="icon-sort"></i></th>
+                <th class="header"> Following <i class="icon-sort"></i></th>
+              </tr>
+          </thead>
+          <tbody>
+
+
+          {% for key in data %}
+              <tr>
+                  <td>{{ key.name }}</td>
+                  <td>{{ key.blog }}</td>
+                  <td>{{ key.public_repos }}</td>
+                  <td>{{ key.public_gists }}</td>
+                  <td>{{ key.email }}</td>
+                  <td>{{ key.followers }}</td>
+                  <td>{{ key.following }}</td>
+              </tr>
+          {% endfor %}
+
+
+          </tbody>
+          </table>
+      </div>
+    </div>
+	<footer>
+		<div class="container-fluid" style='margin-left:15px'>
+			<p><a href="#" target="blank">Contact</a> | <a href="#" target="blank">LinkedIn</a> | <a href="#" target="blank">Twitter</a> | <a href="#" target="blank">Google+</a></p>
+		</div>
+	</footer>	
+	
+</body>    
+</html>
+
+-------------------------------
+
+Capturing POST parameters from a form
+
+-------------------------------
+
+def profile(request):
+    parsedData = []
+    if request.method == 'POST':
+        username = request.POST.get('user')
+        req = requests.get('https://api.github.com/users/' + username)
+        jsonList = []
+        jsonList.append(json.loads(req.content))
+        userData = {}
+        for data in jsonList:
+            userData['name'] = data['name']
+            userData['blog'] = data['blog']
+            userData['email'] = data['email']
+            userData['public_gists'] = data['public_gists']
+            userData['public_repos'] = data['public_repos']
+            userData['avatar_url'] = data['avatar_url']
+            userData['followers'] = data['followers']
+            userData['following'] = data['following']
+        parsedData.append(userData)
+    return render(request, 'app/profile.html', {'data': parsedData})
+	
+	
+	
+	
+	
+//////////////////////////////////////////////////
+
+
+PRAW (PYTHON REDDIT API WRAPPER)
+
+(apis) PS C:\PythonProjects\github_dev\demonstration> pip install praw
+Collecting praw
+  Downloading praw-4.4.0-py2.py3-none-any.whl (78kB)
+    100% |################################| 81kB 386kB/s
+Collecting update-checker>=0.16 (from praw)
+  Using cached update_checker-0.16-py2.py3-none-any.whl
+Collecting prawcore<0.9,>=0.8.0 (from praw)
+  Downloading prawcore-0.8.0-py2.py3-none-any.whl
+Requirement already satisfied: requests>=2.3.0 in c:\pythonprojects\virtualenvs\apis\lib\site-packages (from update-chec
+ker>=0.16->praw)
+Installing collected packages: update-checker, prawcore, praw
+Successfully installed praw-4.4.0 prawcore-0.8.0 update-checker-0.16
+(apis) PS C:\PythonProjects\github_dev\demonstration>
+
+
+
+
+
+
+req = requests.get('https://api.github.com/users/DrkSephy')
+    content = req.text
+    return HttpResponse(content)

@@ -1,0 +1,305 @@
+Python, Django, and MySQL///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/******
+
+Experienced Python/Django developers often choose to instead run their Python apps within independent Python virtual environments.
+These allow developers to have multiple different Django environments on a single computer, allowing them to create new websites (using the latest version of Django) 
+while still maintaining websites that rely on older versions.
+The Django developer team itself recommends that you use Python virtual environments.
+
+That's how this tutorial is going to be about!
+
+******/
+0. Access PowerShell as admin
+1. Create the main folder in the root:
+
+PS > cd C:\
+PS > mkdir PythonProjects
+PS > cd PythonProjects
+
+2. a) Get Python 2.7 (32 bits is the one I suggest) - install in your path - (https://www.python.org/downloads/release/python-2712/)
+
+Customize the location: C:\Python27
+
+Once you’ve installed Python,
+open up a PowerShell window and type python and press enter
+PS C:\PythonProjects>  python
+
+This is what you will see:
+-------------------
+
+PS C:\PythonProjects> python
+Python 2.7.12 (v2.7.12:d33e0cf91556, Jun 27 2016, 15:19:22) [MSC v.150
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+------------------- (CTRL + Z to exit the Python prompt)
+
+b) Get Python 3.5.2 (32 bits is the one I suggest) - install off your path - https://www.python.org/downloads/release/python-352/
+
+Customize the location: C:\Python35-32
+
+3. Get Pip
+
+Save the following script as get-pip.py:
+--------------
+https://bootstrap.pypa.io/get-pip.py  (if you can not find it, ask me for a copy)
+--------------
+
+PS C:\PythonProjects> python get-pip.py
+
+To check if everything is working, just type pip at the command line:
+
+PS C:\PythonProjects> pip
+PS C:\PythonProjects> pip install --upgrade setuptools
+PS C:\PythonProjects> pip install ez_setup
+
+
+4. Install virtualenv and virtualenvwrapper-powershell
+
+PS C:\PythonProjects> pip install virtualenv
+PS C:\PythonProjects> pip install virtualenvwrapper-powershell
+
+5. Create, activate and deactivate virtual environment
+PS C:\PythonProjects\virtualenvs> virtualenv rrh 
+PS C:\PythonProjects\virtualenvs> Set-ExecutionPolicy Unrestricted -Force
+PS C:\PythonProjects\virtualenvs> rrh\Scripts\activate
+(rrh) PS C:\PythonProjects\virtualenvs> deactivate    // to put things back to normal.
+
+Note: It's using Python version 2.7. If we want it to use the Python 3.5.2, just run the following command while creating the virtualenv:
+PS C:\PythonProjects\virtualenvs> virtualenv --python=c:\Python35-32\python.exe envname
+
+7. Install Django
+(rrh) PS C:\PythonProjects\virtualenvs\rrh> pip install django
+
+Start an interactive interpreter by typing
+(rrh) PS C:\PythonProjects\virtualenvs\rrh> python
+-----------------------------------
+Python 2.7.12 (v2.7.12:d33e0cf91556, Jun 27 2016, 15:19:22) [MSC v.1500 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+-----------------------------------
+
+Great. As you can see, version 2.7.12 is installed in this virtualenv -> the version used globally in our machine.
+It's great because MySQL-Python is not yet supported in Python-3.0.
+
+(rrh) PS C:\PythonProjects\virtualenvs> cd ..
+(rrh) PS C:\PythonProjects\> mkdir rrh
+(rrh) PS C:\PythonProjects\> cd rrh 
+(rrh) PS C:\PythonProjects\rrh> python -m django-admin startproject webapp // we are calling to our project name 'webapp'.
+
+You should now see the project’s folder in our Django directory (C:\PythonProjects\rrh
+
+(rrh) PS C:\PythonProjects\rrh> cd webapp
+(rrh) PS C:\PythonProjects\rrh\webapp> dir
+
+(rrh) PS C:\PythonProjects\rrh\webapp> python manage.py //Manage.py is Django’s command line utility; you should see a list of its available subcommands.
+(rrh) PS C:\PythonProjects\rrh\webapp> python manage.py runserver //start up Django’s development server.
+
+8. Setup MySQL and Install MySQL-python in your virtualenv
+
+For the MySQL,
+Download:
+https://dev.mysql.com/downloads/mysql/   (Check Include Bin Directory in Windows PATH box.)
+
+When prompted, set a password for the MySQL root account.
+Create database, create a user and grant the user database access.
+
+For the MySQL-Python,
+Download: https://pypi.python.org/pypi/MySQL-python/1.2.5
+
+After downloading, do not run the Windows installer.
+(rrh) PS C:\PythonProjects\rrh\webapp> cd /PythonProjects
+(rrh) PS C:\PythonProjects> mkdir downloads
+
+(rrh) PS C:\PythonProjects> mv  -v ~/Downloads/MySQL-python-1.2.5.win32-py2.7.exe /PythonProjects/downloads
+
+(rrh) PS C:\PythonProjects\rrh\webapp> easy_install file://c:/PythonProjects/downloads/MySQL-python-1.2.5.win32-py2.7.exe
+
+(rrh) PS C:\PythonProjects\rrh\webapp> deactivate
+
+9. Setting Django up to use MySQL (https://docs.djangoproject.com/en/dev/ref/databases/#mysql-notes)
+
+open settings.py,
+and update the default key in the DATABASES dictionary.
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'DB_NAME',
+        'USER': 'DB_USER',
+        'PASSWORD': 'DB_PASSWORD',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+    }
+}
+
+PS C:\PythonProjects\rrh\webapp> cd ..
+PS C:\PythonProjects\rrh> cd ..
+PS C:\PythonProjects> virtualenvs\rrh\Scripts\activate
+(rrh) PS C:\PythonProjects> cd rrh/webapp //root of our Django project.
+(rrh) PS C:\PythonProjects\rrh\webapp> python manage.py migrate //
+
+You have Python, Django, and MySQL communicating in harmony.
+Congratulations!
+Let's deactivate our virtualenv and close PowerShell 
+
+(rrh) PS C:\PythonProjects\rrh\webapp> deactivate
+PS C:\PythonProjects\rrh\webapp> exit
+
+Django Web App\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+Start our virtual env, create a user and run the server:
+
+PS C:\WINDOWS\system32> cd C:\PythonProjects
+PS C:\PythonProjects> virtualenvs\rrh\Scripts\activate
+(rrh) PS C:\PythonProjects> cd rrh/webapp
+(rrh) PS C:\PythonProjects\rrh\webapp> python manage.py createsuperuser
+(rrh) PS C:\PythonProjects\rrh\webapp> python manage.py runserver
+(CTRL + C to stop the server of running)
+
+Setup Django Suit for a nicer Admin Interface///////////////////
+
+PS C:\WINDOWS\system32> cd C:\PythonProjects
+PS C:\PythonProjects> virtualenvs\rrh\Scripts\activate
+(rrh) PS C:\PythonProjects> cd rrh/webapp
+(rrh) PS C:\PythonProjects\rrh\webapp> pip install django-suit==0.2.23
+
+Then, go to settings.py file and add the 'suit' application:
+(this is how is looking on mine)
+INSTALLED_APPS = [
+    'suit',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+
+Also, make sure you have 'django.template.context_processors.request',in your TEMPLATES OPTIONS context_processors (in settings.py):
+This is required to handle left side menu. 
+(this is how is looking on mine)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request', # Make sure you have this line
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+Note:
+If you deploy your project with Apache or Debug=False don’t forget to run: ./manage.py collectstatic
+
+
+(rrh) PS C:\PythonProjects\rrh\webapp> pip install git+https://github.com/darklow/django-suit.git
+
+Working with Django////////////////////////// (django) is a virtual env = to (rrh)
+
+(django) PS C:\PythonProjects\django\webapp> python manage.py startapp frontend
+(django) PS C:\PythonProjects\django\webapp> python manage.py startapp blog
+
+Then, we need to install the app.
+
+How?
+
+settings.py of the project and write the name in installed apps.
+
+-----------------------
+INSTALLED_APPS = [
+    'frontend',
+    'blog',
+    'suit',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+-----------------------
+Once installed, we need a pointer.
+That's handled in urls.py
+
+---------------------------
+from django.conf.urls import url, include
+from django.contrib import admin
+
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'^', include('frontend.urls')),
+    url(r'^blog', include('blog.urls')),
+]
+----------------------------
+
+Then, create in models the tables we need.
+
+Example, for the blog,
+----------------------------
+from __future__ import unicode_literals
+
+from django.db import models
+
+# Create your models here.
+class Post(models.Model): #class is the table
+    title = models.CharField(max_length=140)
+    body = models.TextField()
+    date = models.DateTimeField()
+    
+    def __unicode__(self): # __str__ in Python 3
+        return selt.title
+-----------------------------
+
+Then, let's create our urls.py inside blog app,
+blog/urls.py:
+
+------------------------------
+from django.conf.urls import url, include
+from django.views.generic import ListView, DetailView
+from blog.models import Post
+
+urlpatterns = [ 
+                url(r'^$', ListView.as_view(
+                                    queryset=Post.objects.all().order_by("-date")[:25],
+                                    template_name="blog/blog.html")),
+            ]
+-------------------------------
+
+create a blog.html inside of template/blog/blog.html
+
+-------------------------------
+{% extends "frontend/header.html" %}
+{% block content %}
+    {% for post in object_list %} <!-- post object -->
+		<h5>{{ post.date|date:"Y-m-d" }}<a href="/blog/{{post.id}}">  {{ post.title }}</a></h5> <!-- post.date = date column of post object -->
+	{% endfor %}
+
+{% endblock %}
+-------------------------------
+
+make migration:
+
+1. python manage.py migrate
+2. python manage.py makemigration
+3. python manage.py migrate
+
+
+To start:
+
+PS C:\WINDOWS\system32> cd /PythonProjects
+PS C:\PythonProjects> virtualenvs\django\Scripts\activate
+(django) PS C:\PythonProjects> cd django/webapp
+(django) PS C:\PythonProjects\django\webapp> python manage.py runserver
+
+Introducing Praw\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+ pip install praw
